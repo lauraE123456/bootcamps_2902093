@@ -1,26 +1,45 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Course } from './entities/course.entity';
 
 @Injectable()
 export class CourseService {
-  create(createCourseDto: CreateCourseDto) {
-    return 'This action adds a new course';
+
+  constructor(@InjectRepository(Course)
+  private cursoRepository: Repository <Course>){
+
+  }
+
+  create(payload: any) {
+    const newCurso= this.cursoRepository.create(payload)
+    return this.cursoRepository.save(newCurso)
   }
 
   findAll() {
-    return `This action returns all course`;
+    return this.cursoRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} course`;
+    return this.cursoRepository.findOneBy({id:id})
   }
 
-  update(id: number, updateCourseDto: UpdateCourseDto) {
-    return `This action updates a #${id} course`;
+  
+  async update(id: number, payload: any) {
+    const upCourse = await
+              this.cursoRepository.findOneBy({id});
+              this.cursoRepository.merge(upCourse,payload)
+              return this.cursoRepository.save(upCourse)
+    
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} course`;
+
+  async remove(id: number) {
+    const delCourse =await
+            this.cursoRepository.findOneBy({id})
+            this.cursoRepository.delete(delCourse)
+    return this.cursoRepository.save(delCourse)
   }
 }

@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { BootcampsModule } from './bootcamps/bootcamps.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CourseModule } from './course/course.module';
@@ -19,20 +17,9 @@ import { ReviewsModule } from './reviews/reviews.module';
       entities: [],
       synchronize: true,
       autoLoadEntities: true
-    }),
-    
-    
-    BootcampsModule,
-    
-    
-    CourseModule,
-    
-    
-    UsersModule,
-    
-    
-    ReviewsModule],
-  controllers: [AppController],
-  providers: [AppService],
+    }),   
+    BootcampsModule,CourseModule,UsersModule, ReviewsModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

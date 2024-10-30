@@ -8,8 +8,8 @@ export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
   @Post()
-  create(@Body() createCourseDto: CreateCourseDto) {
-    return this.courseService.create(createCourseDto);
+  create(@Body() payload: CreateCourseDto) {
+    return this.courseService.create(payload);
   }
 
   @Get()
@@ -23,8 +23,8 @@ export class CourseController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.courseService.update(+id, updateCourseDto);
+  update(@Param('id') id: string, @Body() payload: any) {
+    return this.courseService.update(+id, payload);
   }
 
   @Delete(':id')

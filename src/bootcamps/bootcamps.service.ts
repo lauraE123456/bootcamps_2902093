@@ -8,15 +8,16 @@ import { Bootcamp } from './entities/bootcamp.entity';
 @Injectable()
 export class BootcampsService {
 
-  // obtener una instancia del  repositorio
-  // como atributo de la clase bootcampService
-  //sin nececidd de instanciarlo 
   constructor(@InjectRepository(Bootcamp) 
     private bootcampRepository: Repository <Bootcamp>){
 
   }
-  create(createBootcampDto: CreateBootcampDto) {
-    return 'This action adds a new bootcamp';
+  create(payload: any) {
+    //CREAR UNA INSTACIA DE UNA ENTITY BOOTCAMP
+    const newBootcamp= this.
+                        bootcampRepository.create(payload)
+    //RETORNAR Y GRABAR LA INSTACIA NEWBOOTCAMP
+    return this.bootcampRepository.save(newBootcamp);
   }
 
   findAll() {
@@ -24,14 +25,24 @@ export class BootcampsService {
   }
 
   findOne(id: number) {
-    return this.bootcampRepository.findOneBy({id});
+    return this.bootcampRepository.findOneBy({id:id});
   }
 
-  update(id: number, updateBootcampDto: UpdateBootcampDto) {
-    return `This action updates a #${id} bootcamp`;
+  async update(id: number, payload: any) {
+    //1. traer por id
+    const upBootcamps = await
+              this.bootcampRepository.findOneBy({id});
+    //2.hacer update para agregar cambios
+              this.bootcampRepository.merge(upBootcamps, payload)
+    //grabrar
+    return this.bootcampRepository.save(upBootcamps)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bootcamp`;
+  async remove(id: number) {
+    const delBootcamp = await
+              this.bootcampRepository.findOneBy({id});
+              this.bootcampRepository.delete(delBootcamp)
+    //grabrar
+    return this.bootcampRepository.save(delBootcamp)
   }
 }

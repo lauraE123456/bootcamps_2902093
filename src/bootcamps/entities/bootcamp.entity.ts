@@ -18,11 +18,11 @@ export class Bootcamp {
     @Column('double')
     averageRating: number
 
-    @Column('date')
-    createdAt: Date
-    
     @Column('varchar', {length: 20})
     phone: string
-
     
+    @Column({type:'timestamp',
+        name:'create_at',
+        default:()=>'CURRENT_TIMESTAMP'})
+    createdAt: Date;
 }
