@@ -1,0 +1,27 @@
+meta {
+  name: crear nuevo courses
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3002/course/
+  body: json
+  auth: none
+}
+
+headers {
+  Content-type: application/json
+}
+
+body:json {
+  
+    {
+      "title": "fgfb33",
+      "description": "ca@lle 52",
+      "weeks": 2,
+      "tuition": 1333,
+      "createdAt": "1999-09-23",
+      "minimun_skill": "Beginner"
+    }
+}

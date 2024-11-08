@@ -17,7 +17,8 @@ import { ReviewsModule } from './reviews/reviews.module';
       entities: [],
       synchronize: true,
       autoLoadEntities: true
-    }),   
+      //dropSchema: true
+    }),
     BootcampsModule,CourseModule,UsersModule, ReviewsModule],
   controllers: [],
   providers: [],

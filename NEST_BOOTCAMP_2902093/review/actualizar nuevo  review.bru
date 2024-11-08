@@ -1,0 +1,22 @@
+meta {
+  name: actualizar nuevo  review
+  type: http
+  seq: 1
+}
+
+patch {
+  url: http://localhost:3002/course/3
+  body: json
+  auth: none
+}
+
+headers {
+  Content-type: application/json
+}
+
+body:json {
+  
+    {
+      "title": "sistemas operativos"
+    }
+}

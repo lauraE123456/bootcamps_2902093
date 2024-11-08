@@ -13,7 +13,7 @@ export class CourseService {
 
   }
 
-  create(payload: any) {
+  create(payload: CreateCourseDto) {
     const newCurso= this.cursoRepository.create(payload)
     return this.cursoRepository.save(newCurso)
   }
@@ -27,7 +27,7 @@ export class CourseService {
   }
 
   
-  async update(id: number, payload: any) {
+  async update(id: number, payload: UpdateCourseDto) {
     const upCourse = await
               this.cursoRepository.findOneBy({id});
               this.cursoRepository.merge(upCourse,payload)

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable,NotFoundException } from '@nestjs/common';
 import { CreateBootcampDto } from './dto/create-bootcamp.dto';
 import { UpdateBootcampDto } from './dto/update-bootcamp.dto';
 import { Repository } from 'typeorm';
@@ -12,10 +12,10 @@ export class BootcampsService {
     private bootcampRepository: Repository <Bootcamp>){
 
   }
-  create(payload: any) {
+  create(body: CreateBootcampDto) {
     //CREAR UNA INSTACIA DE UNA ENTITY BOOTCAMP
     const newBootcamp= this.
-                        bootcampRepository.create(payload)
+                        bootcampRepository.create(body)
     //RETORNAR Y GRABAR LA INSTACIA NEWBOOTCAMP
     return this.bootcampRepository.save(newBootcamp);
   }
@@ -24,25 +24,31 @@ export class BootcampsService {
     return this.bootcampRepository.find()
   }
 
-  findOne(id: number) {
-    return this.bootcampRepository.findOneBy({id:id});
+  async findOne(id: number) {
+    const bootcamp = await this.bootcampRepository.findOneBy({id});
+    if(!bootcamp){
+      throw new NotFoundException(`No existe el bootcamp ${id}`);
+    }
+      return bootcamp;
   }
 
-  async update(id: number, payload: any) {
-    //1. traer por id
+  async update(id: number, body: UpdateBootcampDto) {
     const upBootcamps = await
               this.bootcampRepository.findOneBy({id});
-    //2.hacer update para agregar cambios
-              this.bootcampRepository.merge(upBootcamps, payload)
-    //grabrar
+    if(!upBootcamps){
+      throw new NotFoundException(`No existe el bootcamp ${id}`);
+    }
+              this.bootcampRepository.merge(upBootcamps, body)
     return this.bootcampRepository.save(upBootcamps)
   }
 
   async remove(id: number) {
     const delBootcamp = await
               this.bootcampRepository.findOneBy({id});
-              this.bootcampRepository.delete(delBootcamp)
-    //grabrar
+              if(!delBootcamp){
+                throw new NotFoundException(`No existe el bootcamp ${id}`);
+              }
+              await this.bootcampRepository.delete(id)
     return this.bootcampRepository.save(delBootcamp)
   }
 }
