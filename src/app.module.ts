@@ -10,7 +10,7 @@ import { ReviewsModule } from './reviews/reviews.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306,
+      port: 5500,
       username: 'root',
       password: '',
       database: 'bootcamps_2902093',

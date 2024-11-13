@@ -9,12 +9,12 @@ export class CreateBootcampDto {
   readonly name: string;
 
   // Validación para 'phone'
-  @IsNotEmpty({ message: 'El teléfono no puede estar vacío.' })
-  @IsString({ message: 'El teléfono debe ser una cadena de texto.' })
-  @Matches(/^\d{10}$/, {
-    message: 'El teléfono debe contener exactamente 10 dígitos numéricos, sin espacios ni letras.',
-  })
-  readonly phone: string;
+  // @IsNotEmpty({ message: 'El teléfono no puede estar vacío.' })
+  // @IsString({ message: 'El teléfono debe ser una cadena de texto.' })
+  // @Matches(/^\d{10}$/, {
+  //   message: 'El teléfono debe contener exactamente 10 dígitos numéricos, sin espacios ni letras.',
+  // })
+  readonly phone: number;
 
   // Validación para 'address'
   @IsNotEmpty({ message: 'La dirección no puede estar vacía.' })
@@ -33,8 +33,7 @@ export class CreateBootcampDto {
   readonly averageRating: number;
 
   // Validación para 'createdAt'
-  @IsDate({ message: 'La fecha debe ser una fecha válida.' })
-  @IsNotEmpty({ message: 'La fecha de creación no puede estar vacía.' })
-  @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'La fecha debe tener el formato YYYY-MM-DD.' }) // Formato de fecha
+  
   readonly createdAt: Date;
+
 }

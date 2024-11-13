@@ -7,6 +7,9 @@ export class Bootcamp {
     @PrimaryGeneratedColumn()
     id: number
 
+    @Column('varchar', {length: 20})
+    phone: number
+
     @Column('varchar', {length : 20})
     name: string
 
@@ -19,9 +22,6 @@ export class Bootcamp {
 
     @Column('double')
     averageRating: number
-
-    @Column('varchar', {length: 20})
-    phone: string
     
     @Column({type:'timestamp',
         name:'create_at',
